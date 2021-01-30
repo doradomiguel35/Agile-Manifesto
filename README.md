@@ -32,6 +32,17 @@ cd am-frontend
 npm install
 ```
 
+## Run Lumen Backend
+#### Please run on port 9000
+```
+php -S localhost:9000 -t public
+```
+
+## Run Vue Frontend
+```
+npm run serve
+```
+
 ## Run Vue Jest Test
 ```
 npm run test:unit
