@@ -11,7 +11,10 @@
 3. Vue (Frontend)
 
 ## Backend Setup
+
 ```
+cd am-backend
+
 composer install
 copy .env.example .env
 php artisan key:generate
@@ -24,6 +27,8 @@ php artisan db:seed
 
 ## Frontend Setup
 ```
+cd am-frontend
+
 npm install
 ```
 
