@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-6 mt-2 px-1" v-for="val in values" :key="val.id">
-      <b-card bg-variant="light" text-variant="black">
+      <b-card bg-variant="light" text-variant="black" class="h-100">
           <p class="">
             {{ val.value }}  
           </p>

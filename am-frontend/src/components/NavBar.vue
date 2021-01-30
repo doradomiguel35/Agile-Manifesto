@@ -34,7 +34,7 @@ export default {
   watch: {
     auth: function(val){
       if(val){
-        this.isAuth = true
+        this.isAuth = val
       }
     }
   },

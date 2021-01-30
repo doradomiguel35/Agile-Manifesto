@@ -45,7 +45,6 @@ export default {
       },
       dataAdded: function(){
         this.getItems()
-        this.dataAdded = null
       }
     },
     methods: {
@@ -81,6 +80,7 @@ export default {
           try{
             await axios.delete(`/values/${id}/delete`)
             this.getItems()
+            this.successToast('Value deleted')
           }
           
           catch(e){
@@ -89,12 +89,25 @@ export default {
             })
           }
         } else {
-          axios.delete(`/principles/${id}/delete`)
-          .then(() => {
+          try{
+            await axios.delete(`/principles/${id}/delete`)
+          
             this.getItems()
-          })
+            this.successToast('Principle deleted')
+          }
+          catch(e){
+            this.$bvToast.toast('Principle not found', {
+              variant: 'danger'
+            })
+          }
         }
-      }
+      },
+      successToast(msg){
+        this.$bvToast.toast(msg, {
+          title: 'Successful',
+          variant: 'success'
+        })
+      },
     }
 }
 </script>
