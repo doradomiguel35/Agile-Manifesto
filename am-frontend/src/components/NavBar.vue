@@ -20,6 +20,9 @@ import { isAuthenticated } from '../router/index'
 import axios from 'axios'
 
 export default {
+  props: [
+    'auth'
+  ],
   data(){
     return{
       isAuth: false
@@ -28,12 +31,20 @@ export default {
   created(){
     this.isAuth = isAuthenticated()
   },
+  watch: {
+    auth: function(val){
+      if(val){
+        this.isAuth = true
+      }
+    }
+  },
   methods: {
     logout(){
       axios.post('/logout')
       .then(() => {
         localStorage.removeItem('access_token')
         this.$router.push({ path: '/' })
+        this.isAuth = false
       })
     }
   }

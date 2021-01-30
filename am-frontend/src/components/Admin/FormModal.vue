@@ -8,7 +8,7 @@
                 required
             ></b-form-textarea>
 
-            <b-button type="submit" variant="primary mt-4" @click="submit">Submit</b-button>
+            <b-button id="formSubmit" type="submit" variant="primary mt-4" @click="submit">Submit</b-button>
         </b-form>
     </b-modal>
 </template>
@@ -56,43 +56,31 @@ export default {
         }
     },
     methods: {
-        submit(e){
+        async submit(e){
             e.preventDefault()
 
             if(this.selected == 1 && this.type == 'create'){
-                axios.post('/values/create', this.form)
-                .then(res => {
-                    
-                    this.hideModal()
-                    this.$emit('success', res.data)
-                })
+                const res = await axios.post('/values/create', this.form)
+                this.hideModal()
+                this.$emit('success', res.data)
             }
 
             else if(this.selected == 1 && this.type == 'edit'){
-                axios.post(`/values/${this.form.id}/update`, this.form)
-                .then(res => {
-                    
-                    this.hideModal()
-                    this.$emit('success', res.data)
-                })
+                const res = await axios.post(`/values/${this.form.id}/update`, this.form)
+                this.hideModal()
+                this.$emit('success', res.data)
             }
 
             else if(this.selected == 2 && this.type == 'create'){
-                axios.post('/principles/create', this.form)
-                .then(res => {
-                    
-                    this.hideModal()
-                    this.$emit('success', res.data)
-                })
+                const res = await axios.post('/principles/create', this.form)
+                this.hideModal()
+                this.$emit('success', res.data)
             }
 
             else if(this.selected == 2 && this.type == 'edit'){
-                axios.post(`/principles/${this.form.id}/update`, this.form)
-                .then(res => {
-                    
-                    this.hideModal()
-                    this.$emit('success', res.data)
-                })
+                const res = await axios.post(`/principles/${this.form.id}/update`, this.form)
+                this.hideModal()
+                this.$emit('success', res.data)
             }
         },
         hideModal(){

@@ -20,7 +20,7 @@
         ></b-form-input>
 
         <div class="mt-4">
-          <b-button type="submit" variant="primary" @click="login">Submit</b-button>
+          <b-button id="loginBtn" type="submit" variant="primary" @click="login">Submit</b-button>
         </div>
       </b-form>
     </b-card>
@@ -35,23 +35,30 @@ export default {
       form: {
         email: null,
         password: null
-      }
+      },
+      isAuthenticated: false
     }
   },
   methods: {
-    login(e){
+    async login(e){
       e.preventDefault()
 
-      axios.post('/login', this.form)
-      .then(res => {
+      try{
+        const res = await axios.post('/login', this.form)
         const token = res.data.token
         localStorage.setItem('access_token', token)
         this.$router.push({ path:'/admin' })
-        
-      })
-      .catch(err => {
-        console.log(err.data)
-      })
+        this.isAuthenticated = true
+        this.$emit('authenticated', this.isAuthenticated)
+      }
+
+      catch(e){
+        this.$bvToast.toast('Incorrect email or password', {
+          title: 'Login error',
+          variant: 'danger'
+        })
+        this.isAuthenticated = false
+      }
     }
   }
 }

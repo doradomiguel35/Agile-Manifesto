@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <nav-bar></nav-bar>
-    <router-view/>
+    <nav-bar :auth="auth"></nav-bar>
+    <router-view @authenticated="isAuth"/>
   </div>
 </template>
 <script>
@@ -9,6 +9,16 @@ import NavBar from './components/NavBar'
 export default {
   components: {
     'nav-bar': NavBar 
+  },
+  data(){
+    return {
+      auth: false
+    }
+  },
+  methods: {  
+    isAuth(val){
+      this.auth = val
+    }
   }
 }
 </script>

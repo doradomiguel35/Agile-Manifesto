@@ -49,34 +49,45 @@ export default {
       }
     },
     methods: {
-      getItems(){
+      async getItems(){
         if(this.selected == 1){
-          axios.get('/values')
-          .then(res => {
-            this.items = res.data
-          }).catch(() =>{
+          try{
+            const res = await axios.get('/values')
+            this.items = res.data     
+          }
+
+          catch(e){
             this.items = []
-          })
+          }
         } 
         else{
-          axios.get('/principles')
-          .then(res => {
+          try{
+            const res = await axios.get('/principles')
             this.items = res.data
-          }).catch(() =>{
+          }
+          
+          catch(e){
             this.items = []
-          })
+          }
+
         }
       },
       editItem(item){
         this.$emit('dataInput', item)
         this.$emit('selectType', 'edit')
       },
-      deleteItem(id){
+      async deleteItem(id){
         if(this.selected == 1){
-          axios.delete(`/values/${id}/delete`)
-          .then(() => {
+          try{
+            await axios.delete(`/values/${id}/delete`)
             this.getItems()
-          })
+          }
+          
+          catch(e){
+            this.$bvToast.toast('Value not found', {
+              variant: 'danger'
+            })
+          }
         } else {
           axios.delete(`/principles/${id}/delete`)
           .then(() => {

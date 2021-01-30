@@ -7,24 +7,23 @@
 
 <script>
 export default {
-    data(){
-        return {
-            selected: 1,
-            options: [
-                { value: 1, text: 'Values' },
-                { value: 2, text: 'Principles' }
-            ]
-        }
-    },
-    created(){
-        this.$emit('actionSelected', this.selected)
-    },
-    watch: {
-        selected: function(val){
-            console.log(val)
-            this.$emit('actionSelected', val)
-        },
+  data(){
+    return {
+      selected: 1,
+      options: [
+        { value: 1, text: 'Values' },
+        { value: 2, text: 'Principles' }
+      ]
     }
+  },
+  created(){
+    this.$emit('actionSelected', this.selected)
+  },
+  watch: {
+    selected: function(val){
+        this.$emit('actionSelected', val)
+    },
+  }
 }
 </script>
 
